@@ -12,11 +12,9 @@ COPY . .
 
 # Declaring all arg to use for env in build time
 ARG NEXT_PUBLIC_API_URL
-# NEXT_PUBLIC_ENVIRONMENT=protect
-ARG NEXT_PUBLIC_ENVIRONMENT
+
 # Declaring env from the arg value
 ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
-ENV NEXT_PUBLIC_ENVIRONMENT=${NEXT_PUBLIC_ENVIRONMENT}
 
 # Building app
 RUN yarn build
