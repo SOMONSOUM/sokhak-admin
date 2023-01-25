@@ -1,17 +1,11 @@
-import { createContext, PropsWithChildren, useContext, useState } from "react";
+import { PropsWithChildren, useState } from "react";
+import { TokenContext } from "../contexts/TokenContext";
+import { setTokenToHeaders } from "../utils/jwt";
 
-export const TokenContext = createContext<{
-  token: string;
-  setToken: (token: string) => void;
-}>({ token: '', setToken: () => { } })
-
-export function useToken() {
-  return useContext(TokenContext);
-}
-
-export function TokenContainer(props: PropsWithChildren<{}>) {
+export function TokenProvider(props: PropsWithChildren<{}>) {
   const [token, setToken] = useState(typeof window !== "undefined"
     ? window.localStorage.getItem('token') || '' : '');
+  setTokenToHeaders(token);
 
   return (
     <TokenContext.Provider

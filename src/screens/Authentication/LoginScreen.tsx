@@ -9,7 +9,7 @@ import {
   Label,
 } from "reactstrap";
 import Swal from "sweetalert2";
-import { AxiosClient } from "../../config/AxiosClient";
+import { AxiosClient } from "../../api/AxiosClient";
 
 export const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -27,11 +27,10 @@ export const LoginScreen = () => {
   const { mutate } = useMutation("login", {
     mutationFn: login,
     onError: (err: any) => {
-      const error = err.response.data
       Swal.fire({
         icon: 'error',
         title: "Failed",
-        text: `${error.message}`,
+        text: `${err.message}`,
         footer: 'Click to see more',
         confirmButtonText: 'Ok',
       });

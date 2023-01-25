@@ -1,26 +1,20 @@
 import { PropsWithChildren, useContext } from "react";
 import { useQuery } from "react-query";
-import jwt from 'jsonwebtoken'
-import { AxiosClient } from "../config/AxiosClient";
-import { TokenContext } from "./TokenContext";
+import jwt from 'jsonwebtoken';
+import { AxiosClient } from "../api/AxiosClient";
 import { LoginScreen } from "../screens/Authentication/LoginScreen";
-import AuthContext from "./AuthContext";
+import AuthContext from "../contexts/AuthContext";
 import Notiflix from "notiflix";
+import { TokenContext } from "../contexts/TokenContext";
 
 export default function LoginVerification(props: PropsWithChildren<{}>) {
-  const { token } = useContext(TokenContext)
-  const decoded: any = jwt.decode(token)
+  const { token } = useContext(TokenContext);
+  const decoded: any = jwt.decode(token);
 
   const { data, isLoading } = useQuery('Me', {
     queryFn: async () => {
-      if (token !== "") {
-        return await (await AxiosClient.get(`/${decoded?.email}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            Accept: 'application/json',
-            ContentType: 'application/json'
-          }
-        })).data
+      if (token) {
+        return await (await AxiosClient.get(`/${decoded?.email}`)).data
       }
     },
     onError: error => {

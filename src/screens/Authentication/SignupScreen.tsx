@@ -9,7 +9,7 @@ import {
   Label,
 } from "reactstrap";
 import Swal from "sweetalert2";
-import { AxiosClient } from "../../config/AxiosClient";
+import { AxiosClient } from "../../api/AxiosClient";
 
 export const SignupScreen = () => {
   const [email, setEmail] = useState('');
