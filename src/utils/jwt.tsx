@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { AxiosClient } from '../api/AxiosClient';
+import { AxiosClient } from './AxiosClient';
 
 export const isValideToken = (token: string) => {
   if (!token) {

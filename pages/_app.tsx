@@ -1,7 +1,8 @@
+import '../styles/main.scss'
 import type { AppProps } from 'next/app'
 import { QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
-import { queryClient } from '../src/api/AxiosClient'
+import { queryClient } from '../src/utils/AxiosClient'
 import LoginVerification from '../src/hooks/LoginVerification'
 import { TokenProvider } from '../src/hooks/TokenProvider'
 

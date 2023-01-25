@@ -1,7 +1,7 @@
 import { PropsWithChildren, useContext } from "react";
 import { useQuery } from "react-query";
 import jwt from 'jsonwebtoken';
-import { AxiosClient } from "../api/AxiosClient";
+import { AxiosClient } from "../utils/AxiosClient";
 import { LoginScreen } from "../screens/Authentication/LoginScreen";
 import AuthContext from "../contexts/AuthContext";
 import Notiflix from "notiflix";

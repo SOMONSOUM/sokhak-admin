@@ -8,24 +8,16 @@ import {
   Input,
   Label,
 } from "reactstrap";
+import { FiLogIn } from 'react-icons/fi'
 import Swal from "sweetalert2";
-import { AxiosClient } from "../../api/AxiosClient";
+import { LoginMutation } from "../../api/Mutations/Auth";
 
 export const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const login = async ({ email, password }: { email: string; password: string }) => {
-    const response = await (await AxiosClient.post('/login', { email, password })).data
-
-    if (response?.token) {
-      localStorage.setItem('token', response?.token);
-      return response;
-    }
-  }
-
   const { mutate } = useMutation("login", {
-    mutationFn: login,
+    mutationFn: LoginMutation,
     onError: (err: any) => {
       Swal.fire({
         icon: 'error',
@@ -35,7 +27,7 @@ export const LoginScreen = () => {
         confirmButtonText: 'Ok',
       });
     },
-    onSuccess: ({ token }) => {
+    onSuccess: ({ token }: { token: string }) => {
       localStorage.setItem('token', token)
 
       Swal.fire({
@@ -50,7 +42,7 @@ export const LoginScreen = () => {
     }
   })
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     let input = { email, password }
     mutate(input)
@@ -64,7 +56,7 @@ export const LoginScreen = () => {
             name="username"
             placeholder="Username"
             type="text"
-            onChange={(e) => setEmail(e?.target?.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e?.target?.value)}
           />
           <Label for="username">
             Username
@@ -77,7 +69,7 @@ export const LoginScreen = () => {
             name="password"
             placeholder="Password"
             type="password"
-            onChange={(e) => setPassword(e?.target?.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e?.target?.value)}
           />
           <Label for="password">
             Password
@@ -85,7 +77,7 @@ export const LoginScreen = () => {
         </FormGroup>
         {' '}
         <Button color="primary" type="submit">
-          Login
+          <FiLogIn /> ចូល
         </Button>
       </Form>
     </Container>

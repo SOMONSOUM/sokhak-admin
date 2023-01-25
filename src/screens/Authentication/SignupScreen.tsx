@@ -9,24 +9,15 @@ import {
   Label,
 } from "reactstrap";
 import Swal from "sweetalert2";
-import { AxiosClient } from "../../api/AxiosClient";
+import { SignupMutation } from "../../api/Mutations/Auth";
 
 export const SignupScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
 
-  const signup = async ({ email, password, username }: { email: string; password: string, username: string }) => {
-    const response = await (await AxiosClient.post('/signup', { email, password, username })).data
-
-    if (response?.token) {
-      localStorage.setItem('token', response?.token);
-      return response;
-    }
-  }
-
   const { mutate } = useMutation("Signup", {
-    mutationFn: signup,
+    mutationFn: SignupMutation,
     onError: (err: any) => {
       const error = err.response.data
       Swal.fire({
@@ -52,7 +43,7 @@ export const SignupScreen = () => {
     }
   })
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     let input = { email, password, username }
     mutate(input)
@@ -66,7 +57,7 @@ export const SignupScreen = () => {
             name="email"
             placeholder="Email"
             type="text"
-            onChange={(e) => setEmail(e?.target?.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e?.target?.value)}
           />
           <Label for="email">
             Email
@@ -79,7 +70,7 @@ export const SignupScreen = () => {
             name="username"
             placeholder="Username"
             type="text"
-            onChange={(e) => setUsername(e?.target?.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e?.target?.value)}
           />
           <Label for="username">
             Username
@@ -92,7 +83,7 @@ export const SignupScreen = () => {
             name="password"
             placeholder="Password"
             type="password"
-            onChange={(e) => setPassword(e?.target?.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e?.target?.value)}
           />
           <Label for="password">
             Password
