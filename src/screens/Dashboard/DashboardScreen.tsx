@@ -37,7 +37,7 @@ export const DashboardScreen = () => {
           {
             data?.users.map((user: any, idx: number) => {
               return (
-                <tr>
+                <tr key={idx}>
                   <th scope="row"> {idx + 1} </th>
                   <td> {user?.fullname} </td>
                   <td> {user?.email} </td>
