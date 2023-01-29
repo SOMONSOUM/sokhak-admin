@@ -10,7 +10,7 @@ import {
 } from "reactstrap";
 import { FiLogIn } from 'react-icons/fi'
 import Swal from "sweetalert2";
-import { LoginMutation } from "../../api/Mutations/Auth";
+import { LoginMutation } from "../../api/Mutations/AuthMutation";
 
 export const LoginScreen = () => {
   const [email, setEmail] = useState('');

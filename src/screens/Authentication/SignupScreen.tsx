@@ -9,7 +9,7 @@ import {
   Label,
 } from "reactstrap";
 import Swal from "sweetalert2";
-import { SignupMutation } from "../../api/Mutations/Auth";
+import { SignupMutation } from "../../api/Mutations/AuthMutation";
 
 export const SignupScreen = () => {
   const [email, setEmail] = useState('');
